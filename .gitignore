@@ -23,5 +23,5 @@
 hs_err_pid*
 /.metadata/
 
-# MyPrivate
-*.properties
+# MyPrivate Stuff
+application.properties
