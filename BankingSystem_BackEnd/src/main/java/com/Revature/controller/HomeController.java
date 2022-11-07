@@ -71,22 +71,23 @@ public class HomeController {
 		return ResponseEntity.status(HttpStatus.OK).body("LOG IN SUCCESSFUL");
 	}
 	
+	@PostMapping("/logOut") 
+	public ResponseEntity<String> logOut(HttpServletRequest request, HttpServletResponse response) {
+		
+		Cookie[] mycookies = request.getCookies();
+		Cookie c = null;
+		
+		for(Cookie temp : mycookies) {
+			
+			if (temp.getName().equals("authenticated")) {
+				temp.setValue("false");
+				c = temp;
+				System.out.println(temp.getValue());
+			}
+		}
 
-//	@PostMapping("/logOut")
-//	@ResponseBody
-//	public ResponseEntity<String> logOut(@RequestBody User user, HttpServletRequest request, @CookieValue("authenticated") String authenticated) {
-//		Cookie[] cookies = request.getCookies();
-//		
-//		for(Cookie temp: cookies) {
-//			if ( temp.getName().equals("authenticated") ) {
-//				temp.setValue("false");
-//			}
-//			
-//		}
-//		
-//		return ResponseEntity.status(HttpStatus.OK).body("LOG OUT SUCCESSFUL");
-//		 
-//		 
-//	}
-
+		response.addCookie(c);
+		return ResponseEntity.status(HttpStatus.OK).body("LOG OUT SUCCESSFUL");
+	}
+	
 }
