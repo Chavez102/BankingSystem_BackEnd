@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
-@ComponentScan("com.*")
+@ComponentScan("com.*") 
 public class BankingSystemBackEndApplication {
 	
 	
