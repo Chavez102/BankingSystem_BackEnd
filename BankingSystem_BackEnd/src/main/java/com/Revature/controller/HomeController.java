@@ -23,6 +23,7 @@ import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.Revature.model.User;
 import com.Revature.service.UserService;
 import com.Revature.utils.Database;
-
+@CrossOrigin
 @Controller
 public class HomeController {
 	@Autowired
@@ -40,7 +41,7 @@ public class HomeController {
 	@Autowired
 	UserService userService;
 
-	@PostMapping(value = "/register", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+	@PostMapping(value = "/register", consumes = { MediaType.APPLICATION_JSON_VALUE }
 // 	       , produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} 
 	)
 	@ResponseBody
@@ -53,8 +54,8 @@ public class HomeController {
 		return ResponseEntity.status(HttpStatus.CREATED).body("User created");
 
 	}
-
-	@PostMapping(value = "/logIn", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	
+	@PostMapping(value = "/logIn", consumes = { MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public ResponseEntity<String> logIn(@RequestBody User user, HttpServletResponse response) {
 
