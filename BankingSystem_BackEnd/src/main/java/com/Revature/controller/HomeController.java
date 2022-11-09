@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.Revature.model.User;
 import com.Revature.service.UserService;
 import com.Revature.utils.Database;
+
 @CrossOrigin
 @Controller
 public class HomeController {

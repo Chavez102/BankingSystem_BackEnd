@@ -1,4 +1,4 @@
-package com.Revature.BankingSystem_BackEnd;
+package com.Revature;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
