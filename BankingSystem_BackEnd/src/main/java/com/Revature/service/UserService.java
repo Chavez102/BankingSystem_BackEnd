@@ -9,4 +9,6 @@ public interface UserService {
 			public boolean register(User user);
 			
 			public boolean logIn(String username, String password);
+			
+			public User findUserbyUserName(String username);
 }

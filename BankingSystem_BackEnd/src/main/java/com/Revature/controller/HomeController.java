@@ -29,18 +29,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.Revature.model.Account;
 import com.Revature.model.User;
+import com.Revature.service.AccountService;
 import com.Revature.service.UserService;
 import com.Revature.utils.Database;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class HomeController {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
-	@Autowired
 	UserService userService;
+	
 
 	@PostMapping(value = "/register", consumes = { MediaType.APPLICATION_JSON_VALUE }
 // 	       , produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} 
@@ -63,12 +63,19 @@ public class HomeController {
 		if (!userService.logIn(user.getUser_name(), user.getUser_password())) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username or Password wrong");
 		}
-
-		Cookie mycookie = new Cookie("authenticated", "true");
-		int day = 60 * 60 * 24;
-		mycookie.setMaxAge(day * 7);
-		mycookie.setHttpOnly(true);
-		response.addCookie(mycookie);
+		 
+		Cookie authCookie = new Cookie("authenticated", "true");
+		int day = 60 * 60 * 24;				//seconds in a day
+		authCookie.setMaxAge(day * 7);
+		authCookie.setHttpOnly(true);
+		
+		Cookie userNameCookie = new Cookie("userName", user.getUser_name());
+		userNameCookie.setMaxAge(day*7);
+		userNameCookie.setHttpOnly(true);
+		
+		
+		response.addCookie(authCookie);
+		response.addCookie(userNameCookie);
 
 		return ResponseEntity.status(HttpStatus.OK).body("LOG IN SUCCESSFUL");
 	}
@@ -91,5 +98,26 @@ public class HomeController {
 		response.addCookie(c);
 		return ResponseEntity.status(HttpStatus.OK).body("LOG OUT SUCCESSFUL");
 	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

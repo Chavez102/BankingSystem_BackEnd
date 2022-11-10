@@ -66,6 +66,26 @@ public class UserDAOImpl implements UserDAO {
   	return ! userList.isEmpty(); 
   }
 	
+	
+	
+	
+	
+	
+	
+  @Override
+	public User findUserbyUserName(String username) {
+		
+  	List<User> userlist=executeFindUsersStatement(jdbcTemplate,"SELECT * FROM users WHERE user_name =?",username);
+  	 
+		return userlist.get(0);
+	}
+  
+  
+  
+  
+  
+  
+  
   public List<User> executeFindUsersStatement(JdbcTemplate jdbcTemplate,String sql, String...args) { 
 		 
 		 List<User> userList= new ArrayList<>();
@@ -120,6 +140,10 @@ public class UserDAOImpl implements UserDAO {
 		  
 		 return userList; 
 	 }
+
+	
+  
+
 
 
 }
