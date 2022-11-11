@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.Revature.model.Account;
@@ -17,6 +18,7 @@ import com.Revature.model.User;
 import com.Revature.service.AccountService;
 import com.Revature.service.UserService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class AccountController {
 	@Autowired
