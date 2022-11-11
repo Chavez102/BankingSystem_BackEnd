@@ -77,8 +77,8 @@ public class HomeController {
 		
 		response.addCookie(authCookie);
 		response.addCookie(userNameCookie);
-
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("LOG IN SUCCESSFUL"));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("login successful"));
 	}
 	
 	@PostMapping("/logOut") 
