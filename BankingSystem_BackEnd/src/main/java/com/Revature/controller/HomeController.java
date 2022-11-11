@@ -47,22 +47,22 @@ public class HomeController {
 // 	       , produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} 
 	)
 	@ResponseBody
-	public ResponseEntity<Response> register(@RequestBody User user) {
+	public ResponseEntity<Object> register(@RequestBody User user) {
 		// Check if there was an error registering user
 		if (!userService.register(user)) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Error Creating User"));
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("User Created"));
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 
 	}
 	
 	@PostMapping(value = "/logIn", consumes = { MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public ResponseEntity<Response> logIn(@RequestBody User user, HttpServletResponse response) {
+	public ResponseEntity<Object> logIn(@RequestBody User user, HttpServletResponse response) {
 
 		if (!userService.logIn(user.getUser_name(), user.getUser_password())) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Username or Password wrong"));
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		 
 		Cookie authCookie = new Cookie("authenticated", "true");
@@ -78,11 +78,11 @@ public class HomeController {
 		response.addCookie(authCookie);
 		response.addCookie(userNameCookie);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("login successful"));
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
 	@PostMapping("/logOut") 
-	public ResponseEntity<Response> logOut(HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Object> logOut(HttpServletRequest request, HttpServletResponse response) {
 		
 		Cookie[] mycookies = request.getCookies();
 		Cookie c = null;
@@ -97,7 +97,7 @@ public class HomeController {
 		}
 
 		response.addCookie(c);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("LOG OUT SUCCESSFUL"));
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
 	
