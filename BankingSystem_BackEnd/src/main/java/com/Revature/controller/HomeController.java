@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Revature.model.Account;
+import com.Revature.model.Response;
 import com.Revature.model.User;
 import com.Revature.service.AccountService;
 import com.Revature.service.UserService;
@@ -46,22 +47,22 @@ public class HomeController {
 // 	       , produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} 
 	)
 	@ResponseBody
-	public ResponseEntity<String> register(@RequestBody User user) {
+	public ResponseEntity<Response> register(@RequestBody User user) {
 		// Check if there was an error registering user
 		if (!userService.register(user)) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Something went wrong Registering User");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Error Creating User"));
 		}
 
-		return ResponseEntity.status(HttpStatus.CREATED).body("User created");
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("User Created"));
 
 	}
 	
 	@PostMapping(value = "/logIn", consumes = { MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public ResponseEntity<String> logIn(@RequestBody User user, HttpServletResponse response) {
+	public ResponseEntity<Response> logIn(@RequestBody User user, HttpServletResponse response) {
 
 		if (!userService.logIn(user.getUser_name(), user.getUser_password())) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username or Password wrong");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Username or Password wrong"));
 		}
 		 
 		Cookie authCookie = new Cookie("authenticated", "true");
@@ -77,11 +78,11 @@ public class HomeController {
 		response.addCookie(authCookie);
 		response.addCookie(userNameCookie);
 
-		return ResponseEntity.status(HttpStatus.OK).body("LOG IN SUCCESSFUL");
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("LOG IN SUCCESSFUL"));
 	}
 	
 	@PostMapping("/logOut") 
-	public ResponseEntity<String> logOut(HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Response> logOut(HttpServletRequest request, HttpServletResponse response) {
 		
 		Cookie[] mycookies = request.getCookies();
 		Cookie c = null;
@@ -96,7 +97,7 @@ public class HomeController {
 		}
 
 		response.addCookie(c);
-		return ResponseEntity.status(HttpStatus.OK).body("LOG OUT SUCCESSFUL");
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("LOG OUT SUCCESSFUL"));
 	}
 	
 	
