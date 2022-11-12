@@ -7,6 +7,13 @@ public class User {
 	String user_first_name;
 	String user_last_name;
 	String user_email;
+	
+	
+	
+	public User() {
+		super();
+	}
+
 	public User(String user_id, String user_name, String user_password, String user_first_name, String user_last_name,
 			String user_email) {
 		super();
