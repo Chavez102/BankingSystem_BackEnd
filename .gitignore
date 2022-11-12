@@ -25,3 +25,6 @@ hs_err_pid*
 
 # MyPrivate Stuff
 application.properties
+
+#eclipse docs
+target/

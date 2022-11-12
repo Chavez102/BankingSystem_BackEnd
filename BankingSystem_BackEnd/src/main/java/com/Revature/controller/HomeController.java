@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Revature.model.Account;
-import com.Revature.model.Response;
+
 import com.Revature.model.User;
 import com.Revature.service.AccountService;
 import com.Revature.service.UserService;
