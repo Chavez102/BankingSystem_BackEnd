@@ -60,7 +60,6 @@ public class HomeController {
 	@PostMapping(value = "/logIn", consumes = { MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public ResponseEntity<Object> logIn(@RequestBody User user, HttpServletResponse response) {
-		System.out.println(user.toString());
 		if (!userService.logIn(user.getUser_name(), user.getUser_password())) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
@@ -74,8 +73,6 @@ public class HomeController {
 		Cookie userNameCookie = new Cookie("userName", user.getUser_name());
 		userNameCookie.setMaxAge(day*7);
 		userNameCookie.setPath("/");
-		
-		response.setHeader("Set-Cookie", "mycookie=hello;Secure;HttpOnly;Path=/;SameSite=None;Max-Age=9999999999");
 		
 		response.addCookie(authCookie);
 		response.addCookie(userNameCookie);
