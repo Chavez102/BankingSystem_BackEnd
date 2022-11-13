@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Revature.model.Transaction;
 import com.Revature.service.TransactionService;
@@ -27,24 +28,12 @@ public class TransactionController {
 	@Autowired
 	TransactionService transactionService;
 	
-	@GetMapping(value = "/Transactions", consumes = { MediaType.APPLICATION_JSON_VALUE}) 
-	public ResponseEntity< List<Transaction> > getTransactions(@RequestBody String Jsonresponse, HttpServletRequest request ){
+	@GetMapping(value = "/Transactions") 
+	public ResponseEntity< List<Transaction> > getTransactions(@RequestParam String tx_account_number, HttpServletRequest request ){
 		if (! Database.isUserAuthenticated(request.getCookies())) 
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		
-		JSONObject jsonbody= null;
-		int tx_account_number= -1;
-		
-		try {
-			jsonbody = new JSONObject(Jsonresponse);
-			 tx_account_number=jsonbody.getInt("tx_account_number");
-			 
-		} catch (JSONException e) { 
-			System.out.println("Something happened in getTransaction Method");
-			e.printStackTrace();
-		}
-		
-		List<Transaction> allTransactionsList=transactionService.geTransactions(tx_account_number); 
+
+		List<Transaction> allTransactionsList=transactionService.geTransactions(Integer.parseInt(tx_account_number)); 
 		
 		return ResponseEntity.status(HttpStatus.OK).body(allTransactionsList);
 	}

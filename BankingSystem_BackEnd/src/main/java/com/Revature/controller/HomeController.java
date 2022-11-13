@@ -32,8 +32,7 @@ public class HomeController {
 		// Check if there was an error registering user
 		if (!userService.register(user)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
+		} 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 
 	}
