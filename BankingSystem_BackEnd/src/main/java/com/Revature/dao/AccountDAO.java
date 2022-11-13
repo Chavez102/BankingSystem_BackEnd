@@ -7,4 +7,10 @@ import com.Revature.model.Account;
 public interface AccountDAO {
 	
 	List<Account> findAccountbyUserID(int ID);
+	
+	Account findAccountbyAccountNumber(int accountNumber);
+	
+	boolean updateAccountBalance(int accountNumber, double newBalance);
+	
+	
 }

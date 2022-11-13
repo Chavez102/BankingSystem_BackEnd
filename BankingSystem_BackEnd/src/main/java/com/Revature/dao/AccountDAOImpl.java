@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import com.Revature.model.Account;
-import com.Revature.model.User;
+import com.Revature.utils.Database;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -32,7 +32,26 @@ public class AccountDAOImpl implements AccountDAO {
 		return accountList;
 	}
 	
+	@Override
+	public Account findAccountbyAccountNumber(int accountNumber) {
+		// TODO Auto-generated method stub
+		List<Account> accountList =executeFindAccountsStatement(jdbcTemplate, "SELECT * FROM ACCOUNTS WHERE account_number = ?",Integer.toString(accountNumber));
+		if (accountList.isEmpty()) 
+			return null;
+		
+		
+		return accountList.get(0);
+		
+	}
 	
+	
+	@Override
+	public boolean updateAccountBalance(int accountNumber, double newBalance) {
+		return Database.executeStatement(jdbcTemplate, "UPDATE accounts SET account_balance = ? WHERE account_number = ?", 
+																					Double.toString(newBalance),Integer.toString(accountNumber) );
+		
+	}
+	 
   public List<Account> executeFindAccountsStatement(JdbcTemplate jdbcTemplate,String sql, String...args) { 
 		 
 		 List<Account> myList= new ArrayList<>();
@@ -77,7 +96,6 @@ public class AccountDAOImpl implements AccountDAO {
 		         );
 		      }
 				  
-				  System.out.print(myList.toString());
 					return null;
 				}
 			 } ;   
@@ -86,5 +104,5 @@ public class AccountDAOImpl implements AccountDAO {
 		  
 		 return myList; 
 	 }
-
+ 
 }

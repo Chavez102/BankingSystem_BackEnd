@@ -9,15 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("com.*") 
 public class BankingSystemBackEndApplication {
 	
-	
-
 	public static void main(String[] args) {
 		SpringApplication.run(BankingSystemBackEndApplication.class, args);
-	}
+	} 
 	
-	  
-	   
-	
-	
-
 }

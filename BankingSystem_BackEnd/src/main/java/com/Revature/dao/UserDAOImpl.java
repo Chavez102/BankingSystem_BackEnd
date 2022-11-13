@@ -62,16 +62,10 @@ public class UserDAOImpl implements UserDAO {
 	public boolean isUser(String username) {
   	
   	List<User> userList = executeFindUsersStatement(jdbcTemplate,"SELECT * FROM users WHERE user_name=?", username);
-  	System.out.println();
+  	
   	return ! userList.isEmpty(); 
   }
-	
-	
-	
-	
-	
-	
-	
+
   @Override
 	public User findUserbyUserName(String username) {
 		
@@ -79,13 +73,7 @@ public class UserDAOImpl implements UserDAO {
   	 
 		return userlist.get(0);
 	}
-  
-  
-  
-  
-  
-  
-  
+
   public List<User> executeFindUsersStatement(JdbcTemplate jdbcTemplate,String sql, String...args) { 
 		 
 		 List<User> userList= new ArrayList<>();
@@ -130,8 +118,7 @@ public class UserDAOImpl implements UserDAO {
 		                )			
 		         );
 		      }
-				  
-				  System.out.print(userList.toString());
+				   
 					return null;
 				}
 			 } ;   
@@ -140,10 +127,5 @@ public class UserDAOImpl implements UserDAO {
 		  
 		 return userList; 
 	 }
-
-	
-  
-
-
 
 }
