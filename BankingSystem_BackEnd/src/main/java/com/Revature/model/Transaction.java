@@ -12,7 +12,8 @@ public class Transaction {
 	String tx_type ;
 	String tx_description;
 	
-	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss a z") 
+	//@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss a z") 
+	@JsonFormat(pattern="yyyy-MM-dd") 
 	Timestamp tx_date ;
 	
 	
