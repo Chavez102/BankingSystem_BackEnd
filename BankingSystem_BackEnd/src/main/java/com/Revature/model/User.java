@@ -7,6 +7,13 @@ public class User {
 	String user_first_name;
 	String user_last_name;
 	String user_email;
+	
+	
+	
+	public User() {
+		super();
+	}
+
 	public User(String user_id, String user_name, String user_password, String user_first_name, String user_last_name,
 			String user_email) {
 		super();
@@ -17,6 +24,13 @@ public class User {
 		this.user_last_name = user_last_name;
 		this.user_email = user_email;
 	}
+	
+	public User(String user_name, String user_password) {
+		super();
+		this.user_name = user_name;
+		this.user_password = user_password;
+	}
+
 	public String getUser_id() {
 		return user_id;
 	}
