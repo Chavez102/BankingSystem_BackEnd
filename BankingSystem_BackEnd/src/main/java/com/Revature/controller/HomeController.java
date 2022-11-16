@@ -1,5 +1,7 @@
 package com.Revature.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,12 +12,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.Revature.model.Account;
 import com.Revature.model.User;
 import com.Revature.service.UserService;
+import com.Revature.utils.Database;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
@@ -80,7 +85,19 @@ public class HomeController {
 	
 	
 
-	
+	@GetMapping("/user") 
+	public ResponseEntity<User> getUser(HttpServletRequest request, HttpServletResponse response) {
+
+		if(! Database.isUserAuthenticated(request.getCookies()))
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		
+		String userName = Database.getUserNameFromCookies(request.getCookies()); 
+		
+		User myUser = userService.findUserbyUserName(userName);
+		myUser.setUser_password("");
+		
+		return ResponseEntity.status(HttpStatus.OK).body(myUser);
+	}
 	
 	
 	
