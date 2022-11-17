@@ -87,7 +87,7 @@ public class AccountController {
 		int receiver_account_number= -1;
 		double valueAmount=-1;
 		
-		String tx_type="";
+		String tx_type="debit";
 		String tx_description="";
 		
 		try {
@@ -96,7 +96,7 @@ public class AccountController {
 			//Mandatory fields in JSON
 			sender_account_number=jsonbody.getInt("sender_account_number");
 			valueAmount=jsonbody.getDouble("value");
-			tx_type = jsonbody.getString("type");
+			
 			
 			//Optional fields in JSON
 			if( jsonbody.has("receiver_account_number") )  receiver_account_number=jsonbody.getInt("receiver_account_number");  
@@ -106,6 +106,8 @@ public class AccountController {
 			System.out.println("Mandatory Json fields are : sender_account_number, value, type");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		} 
+		
+		
 		boolean transferSuccessful=accountService.transerMoney(sender_account_number,receiver_account_number, valueAmount, tx_type, tx_description );
 		
 		if ( ! transferSuccessful) 

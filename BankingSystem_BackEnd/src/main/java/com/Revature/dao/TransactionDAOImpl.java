@@ -37,7 +37,7 @@ public class TransactionDAOImpl implements TransactionDAO{
 		for(Transaction tempTx: transactionsReceivedbyAccount) {
 			int foreign = tempTx.getTx_account_number();
 			int primary = tempTx.getTx_foreign_account_number();
-			
+			//TODO if statement to deal with Debiit or credit
 			tempTx.setTx_foreign_account_number(foreign);
 			tempTx.setTx_account_number(primary);
 			
