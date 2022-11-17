@@ -12,4 +12,5 @@ public interface AccountService {
 	
 	boolean transerMoney(int sender_account_number,int receiver_account_number, double valueAmount,String tx_type,String tx_description);
 
+	boolean createAccount(Account account);
 }

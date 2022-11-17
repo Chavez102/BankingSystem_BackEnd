@@ -51,6 +51,30 @@ public class AccountDAOImpl implements AccountDAO {
 																					Double.toString(newBalance),Integer.toString(accountNumber) );
 		
 	}
+	
+	
+	@Override
+	public boolean createAccount(Account account) {
+		return Database.executeStatement(jdbcTemplate, "INSERT INTO accounts(account_user_id,account_type,account_balance,account_name) VALUES (?,?,?,?)", 
+				Integer.toString(account.getAccount_user_id()),
+				account.getAccount_type(),
+				Double.toString(account.getAccount_balance()),
+				account.getAccount_name() 
+				);
+
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	 
   public List<Account> executeFindAccountsStatement(JdbcTemplate jdbcTemplate,String sql, String...args) { 
 		 
@@ -104,5 +128,7 @@ public class AccountDAOImpl implements AccountDAO {
 		  
 		 return myList; 
 	 }
+
+	
  
 }

@@ -12,5 +12,7 @@ public interface AccountDAO {
 	
 	boolean updateAccountBalance(int accountNumber, double newBalance);
 	
+	boolean createAccount(Account account);
+	
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,31 @@ public class AccountController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
+	
+	
+	
+	@PostMapping( value = "/Add", consumes = { MediaType.APPLICATION_JSON_VALUE } ) // "works with http://localhost:8080/Accounts/Add" create new Account for user
+	public ResponseEntity< List<Account> > createAccounts(@RequestBody Account account,HttpServletRequest request, HttpServletResponse response) {
+
+		if(! Database.isUserAuthenticated(request.getCookies()))
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		
+		String userName = Database.getUserNameFromCookies(request.getCookies()); 
+		
+		User myUser = userService.findUserbyUserName(userName);
+		 
+		account.setAccount_user_id(Integer.parseInt(myUser.getUser_id()));
+		
+		accountService.createAccount(account);
+		
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+	
+	
+	
+	
 	
 	@PutMapping(value = "/Transfer", consumes = { MediaType.APPLICATION_JSON_VALUE}) 
 	public ResponseEntity<Object> transfer(@RequestBody String Jsonresponse, HttpServletRequest request ){

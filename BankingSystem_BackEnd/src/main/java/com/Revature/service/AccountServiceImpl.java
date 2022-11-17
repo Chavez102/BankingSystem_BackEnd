@@ -73,6 +73,12 @@ public class AccountServiceImpl implements AccountService {
 		return true;
 	}
 
+	@Override
+	public boolean createAccount(Account account) {
+		accountDAO.createAccount(account);
+		return false;
+	}
+
 	
 
  
