@@ -40,6 +40,9 @@ public class TransactionDAOImpl implements TransactionDAO{
 			//TODO if statement to deal with Debiit or credit
 			tempTx.setTx_foreign_account_number(foreign);
 			tempTx.setTx_account_number(primary);
+			if (tempTx.getTx_type().equals("debit")) {
+				tempTx.setTx_type("credit");
+			}
 			
 			transactionsSentFromAccount.add(tempTx);
 		} 
