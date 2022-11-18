@@ -73,6 +73,22 @@ public class UserDAOImpl implements UserDAO {
   	 
 		return userlist.get(0);
 	}
+  
+	@Override
+	public boolean updateEmail(int userId, String newEmail) {
+		return Database.executeStatement(jdbcTemplate, "UPDATE users SET user_email = ? WHERE user_id = ? ", newEmail,Integer.toString(userId) );
+		
+		
+		
+
+	}
+
+  
+  
+  
+  
+  
+  
 
   public List<User> executeFindUsersStatement(JdbcTemplate jdbcTemplate,String sql, String...args) { 
 		 
@@ -127,5 +143,6 @@ public class UserDAOImpl implements UserDAO {
 		  
 		 return userList; 
 	 }
+
 
 }

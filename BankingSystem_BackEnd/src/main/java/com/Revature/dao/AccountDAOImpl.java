@@ -58,7 +58,7 @@ public class AccountDAOImpl implements AccountDAO {
 		return Database.executeStatement(jdbcTemplate, "INSERT INTO accounts(account_user_id,account_type,account_balance,account_name) VALUES (?,?,?,?)", 
 				Integer.toString(account.getAccount_user_id()),
 				account.getAccount_type(),
-				Double.toString(account.getAccount_balance()),
+				Double.toString(0.0),
 				account.getAccount_name() 
 				);
 

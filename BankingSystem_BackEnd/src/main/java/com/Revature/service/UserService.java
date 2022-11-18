@@ -11,4 +11,6 @@ public interface UserService {
 			public boolean logIn(String username, String password);
 			
 			public User findUserbyUserName(String username);
+			
+			public boolean updateEmail(int userId,String newEmail);
 }

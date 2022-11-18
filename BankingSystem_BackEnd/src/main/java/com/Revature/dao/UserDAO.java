@@ -14,6 +14,8 @@ public interface UserDAO {
 	
 	public User findUserbyUserName(String username);
 	
+	public boolean updateEmail(int userId,String newEmail);
+	
 	
 	
 	

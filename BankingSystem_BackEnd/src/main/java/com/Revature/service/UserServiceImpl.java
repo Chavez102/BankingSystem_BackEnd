@@ -34,4 +34,11 @@ public class UserServiceImpl implements UserService{
 		return userDAO.findUserbyUserName(username);
 	}
 
+
+	@Override
+	public boolean updateEmail(int userId, String newEmail) {
+		// TODO Auto-generated method stub
+		return userDAO.updateEmail(userId, newEmail);
+	}
+
 }

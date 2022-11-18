@@ -6,6 +6,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -97,6 +100,46 @@ public class HomeController {
 		myUser.setUser_password("");
 		
 		return ResponseEntity.status(HttpStatus.OK).body(myUser);
+	}
+	
+	@PutMapping(
+			value = "/email", consumes = { MediaType.APPLICATION_JSON_VALUE}
+			
+			)
+	public ResponseEntity<Object> updateEmail(HttpServletRequest request,@RequestBody String Jsonresponse){
+		if(! Database.isUserAuthenticated(request.getCookies()))
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		
+		//get newEmail
+		JSONObject jsonbody= null;
+		
+		String newEmail="";
+		
+		try {
+			jsonbody = new JSONObject(Jsonresponse);
+			
+			//Mandatory fields in JSON
+			newEmail=jsonbody.getString("newEmail");
+			
+			 
+		} catch (JSONException e) { 
+			System.out.println("Mandatory Json fields are : sender_account_number, value, type");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		} 
+		//
+		
+		
+		
+		String userName = Database.getUserNameFromCookies(request.getCookies()); 
+		User myUser = userService.findUserbyUserName(userName);
+		
+		if (!userService.updateEmail(Integer.parseInt( myUser.getUser_id() ), newEmail) ) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).build();
+		
+		
 	}
 	
 	
