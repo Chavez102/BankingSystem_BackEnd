@@ -41,4 +41,11 @@ public class UserServiceImpl implements UserService{
 		return userDAO.updateEmail(userId, newEmail);
 	}
 
+
+	@Override
+	public boolean updatePassword(int userId, String newPassword) {
+		
+		return userDAO.updatePassword(userId, newPassword);
+	}
+
 }

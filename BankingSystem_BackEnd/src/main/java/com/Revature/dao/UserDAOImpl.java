@@ -82,14 +82,23 @@ public class UserDAOImpl implements UserDAO {
 		
 
 	}
-
-  
-  
-  
-  
-  
-  
-
+	
+	
+	@Override
+	public boolean updatePassword(int userId, String newPassword) {
+		
+		return Database.executeStatement(jdbcTemplate, "UPDATE users SET user_password = ? WHERE user_id = ? ", newPassword,Integer.toString(userId) );
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+ 
   public List<User> executeFindUsersStatement(JdbcTemplate jdbcTemplate,String sql, String...args) { 
 		 
 		 List<User> userList= new ArrayList<>();
@@ -143,6 +152,8 @@ public class UserDAOImpl implements UserDAO {
 		  
 		 return userList; 
 	 }
+
+
 
 
 }

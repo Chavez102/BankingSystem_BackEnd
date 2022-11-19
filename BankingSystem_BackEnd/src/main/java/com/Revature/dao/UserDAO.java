@@ -16,6 +16,8 @@ public interface UserDAO {
 	
 	public boolean updateEmail(int userId,String newEmail);
 	
+	public boolean updatePassword(int userId,String newPassword);
+	
 	
 	
 	

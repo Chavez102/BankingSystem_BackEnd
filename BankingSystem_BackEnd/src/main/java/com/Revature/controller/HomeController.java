@@ -70,6 +70,13 @@ public class HomeController {
 	
 	@PostMapping("/logOut") 
 	public ResponseEntity<Object> logOut(HttpServletRequest request, HttpServletResponse response) {
+//		if(request.getCookies()==null) {
+//			System.out.println("No cookies found");
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//			
+//		}
+		if(! Database.isUserAuthenticated(request.getCookies()))
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		
 		Cookie[] mycookies = request.getCookies();
 		Cookie c = null;
@@ -123,7 +130,7 @@ public class HomeController {
 			
 			 
 		} catch (JSONException e) { 
-			System.out.println("Mandatory Json fields are : sender_account_number, value, type");
+			System.out.println("Mandatory Json fields are : newEmail");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		} 
 		//
@@ -134,6 +141,49 @@ public class HomeController {
 		User myUser = userService.findUserbyUserName(userName);
 		
 		if (!userService.updateEmail(Integer.parseInt( myUser.getUser_id() ), newEmail) ) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).build();
+		
+		
+	}
+	
+	
+	
+	
+	@PutMapping(
+			value = "/password", consumes = { MediaType.APPLICATION_JSON_VALUE}
+			
+			)
+	public ResponseEntity<Object> updatePassword(HttpServletRequest request,@RequestBody String Jsonresponse){
+		if(! Database.isUserAuthenticated(request.getCookies()))
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		
+		
+		JSONObject jsonbody= null;
+		
+		String newPassword="";
+		
+		try {
+			jsonbody = new JSONObject(Jsonresponse);
+			
+			//Mandatory fields in JSON
+			newPassword=jsonbody.getString("newPassword");
+			
+			 
+		} catch (JSONException e) { 
+			System.out.println("Mandatory Json fields are : newPassword");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		} 
+		//
+		
+		
+		
+		String userName = Database.getUserNameFromCookies(request.getCookies()); 
+		User myUser = userService.findUserbyUserName(userName);
+		
+		if (!userService.updatePassword(Integer.parseInt( myUser.getUser_id() ), newPassword) ) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 		

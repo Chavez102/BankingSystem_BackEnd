@@ -64,17 +64,7 @@ public class AccountDAOImpl implements AccountDAO {
 
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	 
 	 
   public List<Account> executeFindAccountsStatement(JdbcTemplate jdbcTemplate,String sql, String...args) { 
 		 
